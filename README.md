@@ -1,0 +1,1 @@
+# SmartError.API
