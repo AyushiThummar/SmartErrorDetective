@@ -1,0 +1,39 @@
+﻿@model SmartError.API.DTOs.CreateErrorDto
+
+<h2>Add Error</h2>
+
+<form method="post">
+
+    <div>
+        <label>Title</label><br />
+        <input asp-for="Title" />
+    </div>
+
+    <br />
+
+    <div>
+        <label>Description</label><br />
+        <textarea asp-for="Description"></textarea>
+    </div>
+
+    <br />
+
+    <div>
+        <label>Stack Trace</label><br />
+        <textarea asp-for="StackTrace"></textarea>
+    </div>
+
+    <br />
+
+    <div>
+        <label>Module Name</label><br />
+        <input asp-for="ModuleName" />
+    </div>
+
+    <br />
+
+    <button type="submit">
+        Save Error
+    </button>
+
+</form>

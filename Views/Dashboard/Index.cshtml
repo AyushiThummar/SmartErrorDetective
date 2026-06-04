@@ -1,0 +1,27 @@
+﻿@model SmartError.API.ViewModels.DashboardViewModel
+
+<h1>Dashboard</h1>
+
+<div style="display:flex;gap:20px;flex-wrap:wrap">
+
+    <div style="border:1px solid black;padding:20px;width:200px">
+        <h3>Total Errors</h3>
+        <h2>@Model.TotalErrors</h2>
+    </div>
+
+    <div style="border:1px solid black;padding:20px;width:200px">
+        <h3>Critical Errors</h3>
+        <h2>@Model.CriticalErrors</h2>
+    </div>
+
+    <div style="border:1px solid black;padding:20px;width:200px">
+        <h3>High Errors</h3>
+        <h2>@Model.HighErrors</h2>
+    </div>
+
+    <div style="border:1px solid black;padding:20px;width:200px">
+        <h3>Duplicate Errors</h3>
+        <h2>@Model.DuplicateErrors</h2>
+    </div>
+
+</div>
