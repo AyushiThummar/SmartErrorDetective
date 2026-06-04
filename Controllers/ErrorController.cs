@@ -20,14 +20,45 @@ namespace SmartError.API.Controllers
             _analyzer = analyzer;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(
+    string searchTerm,
+    string category,
+    string severity,
+    string status)
         {
-            var errors = _context.ErrorLogs
-    .Include(x => x.Category)
-    .Include(x => x.Severity)
-    .ToList();
+            var query = _context.ErrorLogs
+                .Include(x => x.Category)
+                .Include(x => x.Severity)
+                .AsQueryable();
 
-            return View(errors);
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(x =>
+                    x.Title.Contains(searchTerm));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                query = query.Where(x =>
+                    x.Category!.Name == category);
+            }
+
+            if (!string.IsNullOrEmpty(severity))
+            {
+                query = query.Where(x =>
+                    x.Severity!.Name == severity);
+            }
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                query = query.Where(x =>
+                    x.Status == status);
+            }
+
+            ViewBag.Categories = _context.Categories.ToList();
+            ViewBag.Severities = _context.Severities.ToList();
+
+            return View(query.ToList());
         }
 
         public IActionResult Create()
@@ -66,6 +97,7 @@ namespace SmartError.API.Controllers
                 Description = dto.Description,
                 StackTrace = dto.StackTrace,
                 ModuleName = dto.ModuleName,
+                Status = dto.Status,
                 CategoryId = category.Id,
                 SeverityId = severity.Id,
                 SuggestedFix = fix
@@ -88,6 +120,60 @@ namespace SmartError.API.Controllers
             _context.ErrorLogs.Add(error);
 
             _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Details(int id)
+        {
+            var error = _context.ErrorLogs
+                .Include(x => x.Category)
+                .Include(x => x.Severity)
+                .FirstOrDefault(x => x.Id == id);
+
+            if (error == null)
+            {
+                return NotFound();
+            }
+
+            return View(error);
+        }
+        public IActionResult Edit(int id)
+        {
+            var error = _context.ErrorLogs.Find(id);
+
+            if (error == null)
+                return NotFound();
+
+            return View(error);
+        }
+        [HttpPost]
+        public IActionResult Edit(ErrorLog model)
+        {
+            var error = _context.ErrorLogs
+                .FirstOrDefault(x => x.Id == model.Id);
+
+            if (error == null)
+            {
+                return NotFound();
+            }
+
+            error.Title = model.Title;
+            error.Status = model.Status;
+            error.SuggestedFix = model.SuggestedFix;
+
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Delete(int id)
+        {
+            var error = _context.ErrorLogs.Find(id);
+
+            if (error != null)
+            {
+                _context.ErrorLogs.Remove(error);
+                _context.SaveChanges();
+            }
 
             return RedirectToAction(nameof(Index));
         }

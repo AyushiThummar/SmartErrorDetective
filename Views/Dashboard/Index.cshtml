@@ -1,27 +1,57 @@
 ﻿@model SmartError.API.ViewModels.DashboardViewModel
 
-<h1>Dashboard</h1>
+<div class="container mt-4">
 
-<div style="display:flex;gap:20px;flex-wrap:wrap">
+    <h1 class="page-title">
+        📊 Smart Error Detective Dashboard
+    </h1>
 
-    <div style="border:1px solid black;padding:20px;width:200px">
-        <h3>Total Errors</h3>
-        <h2>@Model.TotalErrors</h2>
-    </div>
+    <div class="row">
 
-    <div style="border:1px solid black;padding:20px;width:200px">
-        <h3>Critical Errors</h3>
-        <h2>@Model.CriticalErrors</h2>
-    </div>
+        <div class="col-md-3">
+            <div class="card bg-primary text-white card-shadow">
+                <div class="card-body text-center">
+                    <h5>Total Errors</h5>
+                    <div class="stat-number">
+                        @Model.TotalErrors
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div style="border:1px solid black;padding:20px;width:200px">
-        <h3>High Errors</h3>
-        <h2>@Model.HighErrors</h2>
-    </div>
+        <div class="col-md-3">
+            <div class="card bg-danger text-white card-shadow">
+                <div class="card-body text-center">
+                    <h5>Critical Errors</h5>
+                    <div class="stat-number">
+                        @Model.CriticalErrors
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div style="border:1px solid black;padding:20px;width:200px">
-        <h3>Duplicate Errors</h3>
-        <h2>@Model.DuplicateErrors</h2>
+        <div class="col-md-3">
+            <div class="card bg-warning card-shadow">
+                <div class="card-body text-center">
+                    <h5>High Errors</h5>
+                    <div class="stat-number">
+                        @Model.HighErrors
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success text-white card-shadow">
+                <div class="card-body text-center">
+                    <h5>Duplicate Errors</h5>
+                    <div class="stat-number">
+                        @Model.DuplicateErrors
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>

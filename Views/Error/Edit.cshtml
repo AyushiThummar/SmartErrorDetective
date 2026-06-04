@@ -1,0 +1,61 @@
+﻿@model SmartError.API.Models.ErrorLog
+
+<div class="container mt-4">
+
+    <div class="form-card">
+
+        <h2 class="page-title">
+            Edit Error
+        </h2>
+
+        <form method="post">
+
+            <input asp-for="Id" type="hidden" />
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Title
+                </label>
+
+                <input asp-for="Title"
+                       class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Status
+                </label>
+
+                <select asp-for="Status"
+                        class="form-select">
+
+                    <option>Open</option>
+                    <option>In Progress</option>
+                    <option>Resolved</option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Suggested Fix
+                </label>
+
+                <textarea asp-for="SuggestedFix"
+                          class="form-control"
+                          rows="4">
+                </textarea>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-success">
+                Update Error
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

@@ -1,39 +1,59 @@
 ﻿@model SmartError.API.DTOs.CreateErrorDto
 
-<h2>Add Error</h2>
+<div class="container mt-4">
 
-<form method="post">
+    <div class="form-card">
+
+        <h2 class="page-title">
+            Report New Error
+        </h2>
+
+        <form method="post">
 
     <div>
         <label>Title</label><br />
-        <input asp-for="Title" />
+            <input asp-for="Title" class="form-control" />
     </div>
 
     <br />
 
     <div>
         <label>Description</label><br />
-        <textarea asp-for="Description"></textarea>
+            <textarea asp-for="Description" class="form-control"></textarea>
     </div>
 
     <br />
 
     <div>
         <label>Stack Trace</label><br />
-        <textarea asp-for="StackTrace"></textarea>
+            <textarea asp-for="StackTrace" class="form-control"></textarea>
     </div>
 
     <br />
 
     <div>
         <label>Module Name</label><br />
-        <input asp-for="ModuleName" />
+            <input asp-for="ModuleName" class="form-control" />
     </div>
 
     <br />
 
-    <button type="submit">
-        Save Error
-    </button>
+    <div>
+        <label>Status</label>
+            <select asp-for="Status" class="form-select">
+            <option>Open</option>
+            <option>In Progress</option>
+            <option>Resolved</option>
+        </select>
+    </div>
 
-</form>
+    <br />
+
+        <button type="submit"
+                class="btn btn-primary">
+            Save Error
+        </button>
+
+        </form>
+    </div>
+</div>

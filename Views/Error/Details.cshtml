@@ -1,0 +1,67 @@
+﻿@model SmartError.API.Models.ErrorLog
+
+<div class="container mt-4">
+
+    <div class="form-card">
+
+        <h2 class="page-title">
+            Error Details
+        </h2>
+
+        <table class="table table-bordered">
+
+            <tr>
+                <th>Title</th>
+                <td>@Model.Title</td>
+            </tr>
+
+            <tr>
+                <th>Description</th>
+                <td>@Model.Description</td>
+            </tr>
+
+            <tr>
+                <th>Stack Trace</th>
+                <td>@Model.StackTrace</td>
+            </tr>
+
+            <tr>
+                <th>Module</th>
+                <td>@Model.ModuleName</td>
+            </tr>
+
+            <tr>
+                <th>Status</th>
+                <td>@Model.Status</td>
+            </tr>
+
+            <tr>
+                <th>Category</th>
+                <td>@Model.Category?.Name</td>
+            </tr>
+
+            <tr>
+                <th>Severity</th>
+                <td>@Model.Severity?.Name</td>
+            </tr>
+
+            <tr>
+                <th>Occurrences</th>
+                <td>@Model.OccurrenceCount</td>
+            </tr>
+
+            <tr>
+                <th>Suggested Fix</th>
+                <td>@Model.SuggestedFix</td>
+            </tr>
+
+        </table>
+
+        <a href="/Error/Index"
+           class="btn btn-secondary">
+            Back
+        </a>
+
+    </div>
+
+</div>
