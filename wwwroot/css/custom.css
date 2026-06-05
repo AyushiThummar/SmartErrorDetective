@@ -177,3 +177,49 @@ textarea {
 .btn {
     min-width: 120px;
 }
+
+/*Dark Mode Styling*/
+/* DARK MODE */
+
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+    .dark-mode .navbar {
+        background-color: #0b1f3a !important;
+    }
+
+    .dark-mode .card,
+    .dark-mode .form-card,
+    .dark-mode .search-panel,
+    .dark-mode .custom-table {
+        background-color: #1e1e1e;
+        color: white;
+    }
+
+    .dark-mode table {
+        color: white;
+    }
+
+    .dark-mode input,
+    .dark-mode textarea,
+    .dark-mode select {
+        background-color: #2a2a2a;
+        color: white;
+        border-color: #444;
+    }
+
+    .dark-mode .form-control,
+    .dark-mode .form-select {
+        background-color: #2a2a2a;
+        color: white;
+    }
+
+    .dark-mode .page-title {
+        color: white;
+    }
+
+    .dark-mode .text-muted {
+        color: #cccccc !important;
+    }
