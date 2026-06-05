@@ -221,5 +221,69 @@ namespace SmartError.API.Controllers
                 }
             }
         }
+        // Test endpoint used to demonstrate automatic error capture
+        public IActionResult TestError()
+        {
+            try
+            {
+                int a = 0;
+                int b = 10 / a;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                var categoryName =
+                    _analyzer.DetectCategory(
+                        ex.StackTrace ?? "");
+
+                var severityName =
+                    _analyzer.DetectSeverity(
+                        ex.Message);
+
+                var fix =
+                    _analyzer.GenerateFix(
+                        ex.Message);
+
+                var category =
+                    _context.Categories
+                    .FirstOrDefault(x => x.Name == categoryName);
+
+                var severity =
+                    _context.Severities
+                    .FirstOrDefault(x => x.Name == severityName);
+
+                if (category != null && severity != null)
+                {
+                    var existingError =
+                        _context.ErrorLogs.FirstOrDefault(x =>
+                            x.Title == ex.Message);
+
+                    if (existingError != null)
+                    {
+                        existingError.OccurrenceCount++;
+                    }
+                    else
+                    {
+                        _context.ErrorLogs.Add(new ErrorLog
+                        {
+                            Title = ex.Message,
+                            Description = ex.Message,
+                            StackTrace = ex.StackTrace ?? "",
+                            ModuleName = "Auto Captured",
+                            Status = "Open",
+                            CategoryId = category.Id,
+                            SeverityId = severity.Id,
+                            SuggestedFix = fix,
+                            OccurrenceCount = 1
+                        });
+                    }
+
+                    _context.SaveChanges();
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+        }
     }
 }
