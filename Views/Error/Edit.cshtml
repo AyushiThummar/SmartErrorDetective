@@ -5,7 +5,7 @@
     <div class="form-card">
 
         <h2 class="page-title">
-            Edit Error
+            ✏️ Edit Error
         </h2>
 
         <form method="post">
@@ -13,8 +13,8 @@
             <input asp-for="Id" type="hidden" />
 
             <div class="mb-3">
-                <label class="form-label">
-                    Title
+                <label class="form-label fw-bold">
+                    Error Title
                 </label>
 
                 <input asp-for="Title"
@@ -22,7 +22,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">
+                <label class="form-label fw-bold">
                     Status
                 </label>
 
@@ -34,25 +34,35 @@
                     <option>Resolved</option>
 
                 </select>
+
             </div>
 
-            <div class="mb-3">
+            <div class="mb-4">
 
-                <label class="form-label">
+                <label class="form-label fw-bold">
                     Suggested Fix
                 </label>
 
                 <textarea asp-for="SuggestedFix"
                           class="form-control"
-                          rows="4">
+                          rows="5">
                 </textarea>
 
             </div>
 
-            <button type="submit"
-                    class="btn btn-success">
-                Update Error
-            </button>
+            <div class="d-flex gap-2">
+
+                <button type="submit"
+                        class="btn btn-warning">
+                    Update Error
+                </button>
+
+                <a href="/Error/Index"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </div>
 
         </form>
 
