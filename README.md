@@ -12,7 +12,8 @@ The system automatically categorizes errors, predicts severity levels, detects d
 
 ### Core Features
 
-* Error Logging System
+* Automatic Error Capture
+* Manual Error Reporting
 * Smart Error Categorization
 * Severity Detection
 * Duplicate Error Detection
@@ -112,6 +113,15 @@ The system automatically categorizes errors, predicts severity levels, detects d
 * Critical
 
 ---
+## Error Capture Modes
+
+### Automatic Error Capture
+
+The system can automatically capture runtime application exceptions and store them in the database for further analysis.
+
+### Manual Error Reporting
+
+Users can manually submit errors through the error reporting form.
 
 ## Smart Features
 
@@ -254,13 +264,15 @@ Ctrl + F5
 
 ## Default Workflow
 
-1. Open Dashboard
-2. Add New Error
-3. System Categorizes Error
+1. Application Exception Occurs OR User Reports Error
+2. Error Is Captured
+3. Category Is Detected
 4. Severity Is Predicted
 5. Suggested Fix Is Generated
-6. Dashboard Updates Analytics
-7. Export Reports When Needed
+6. Duplicate Detection Is Performed
+7. Error Is Stored In Database
+8. Dashboard Updates Analytics
+9. Reports Can Be Exported
 
 ---
 

@@ -44,6 +44,40 @@ The system captures application errors, automatically analyzes them, categorizes
 
 ---
 
+
+```md
+## Automatic Error Capture Flow
+
+```text
+Application Exception
+         │
+         ▼
++--------------------+
+| Error Capture Layer|
++--------------------+
+         │
+         ▼
++--------------------+
+| ErrorAnalyzer      |
+| Service            |
++--------------------+
+         │
+         ▼
++--------------------+
+| Duplicate Detector |
++--------------------+
+         │
+         ▼
++--------------------+
+| SQL Server         |
++--------------------+
+         │
+         ▼
++--------------------+
+| Dashboard & Charts |
++--------------------+
+
+```
 ## 3. Layered Architecture
 
 ### Presentation Layer
@@ -73,8 +107,9 @@ Views/
 Views/Dashboard/
 Views/Error/
 Views/Shared/
-```
+wwwroot/css/
 
+```
 ---
 
 ### Controller Layer
@@ -239,63 +274,52 @@ Relationship Type:
 
 ### Step 1
 
-User submits error.
-
-```text
-Create Error Form
-```
+An application exception occurs OR a user reports an error.
 
 ### Step 2
 
-Controller receives request.
+Error is captured by the system.
 
-```text
-ErrorController
-```
+Sources:
+
+* Automatic Exception Capture
+* Manual Error Reporting Form
 
 ### Step 3
 
-Business logic analyzes error.
-
-```text
-ErrorAnalyzerService
-```
+ErrorAnalyzerService analyzes the error.
 
 Tasks:
 
-* Detect Category
-* Detect Severity
-* Generate Fix
+* Category Detection
+* Severity Prediction
+* Suggested Fix Generation
 
 ### Step 4
 
-Duplicate detection runs.
+Duplicate Detection executes.
 
-```text
-Title + StackTrace Comparison
-```
+Comparison:
+
+* Error Title
+* Stack Trace
 
 If duplicate:
 
-```text
 OccurrenceCount++
-```
 
 Else:
 
-```text
-Insert New Record
-```
+Create New Error Record
 
 ### Step 5
 
-Data saved to SQL Server.
+Error is stored in SQL Server.
 
 ### Step 6
 
-Dashboard automatically updates.
+Dashboard statistics and charts update automatically.
 
----
 
 ## 7. Analytics Dashboard
 
