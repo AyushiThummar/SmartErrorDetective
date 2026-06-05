@@ -59,3 +59,84 @@
     </div>
 
 </div>
+<div class="row mt-5">
+
+    <div class="col-md-6">
+
+        <div class="form-card">
+
+            <h4 class="mb-3">
+                Error Severity Distribution
+            </h4>
+
+            <canvas id="severityChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="form-card">
+
+            <h4 class="mb-3">
+                Error Category Distribution
+            </h4>
+
+            <canvas id="categoryChart"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        var severityLabels =
+        @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.SeverityData.Keys));
+
+        var severityValues =
+        @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.SeverityData.Values));
+
+        new Chart(
+        document.getElementById('severityChart'),
+        {
+            type: 'pie',
+
+            data: {
+                labels: severityLabels,
+
+                datasets: [{
+                    data: severityValues
+                }]
+            }
+        });
+
+        var categoryLabels =
+        @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CategoryData.Keys));
+
+        var categoryValues =
+        @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CategoryData.Values));
+
+        new Chart(
+        document.getElementById('categoryChart'),
+        {
+            type: 'bar',
+
+            data: {
+                labels: categoryLabels,
+
+                datasets: [{
+                    label: 'Errors',
+                    data: categoryValues
+                }]
+            }
+        });
+
+    </script>
+
+}

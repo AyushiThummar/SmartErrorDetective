@@ -4,6 +4,8 @@ using SmartError.API.Data;
 using SmartError.API.DTOs;
 using SmartError.API.Models;
 using SmartError.API.Services;
+using ClosedXML.Excel;
+using System.IO;
 
 namespace SmartError.API.Controllers
 {
@@ -176,6 +178,48 @@ namespace SmartError.API.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+        public IActionResult ExportExcel()
+        {
+            var errors = _context.ErrorLogs
+                .Include(x => x.Category)
+                .Include(x => x.Severity)
+                .ToList();
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet =
+                    workbook.Worksheets.Add("Errors");
+
+                worksheet.Cell(1, 1).Value = "Title";
+                worksheet.Cell(1, 2).Value = "Category";
+                worksheet.Cell(1, 3).Value = "Severity";
+                worksheet.Cell(1, 4).Value = "Status";
+                worksheet.Cell(1, 5).Value = "Occurrences";
+
+                int row = 2;
+
+                foreach (var error in errors)
+                {
+                    worksheet.Cell(row, 1).Value = error.Title;
+                    worksheet.Cell(row, 2).Value = error.Category?.Name;
+                    worksheet.Cell(row, 3).Value = error.Severity?.Name;
+                    worksheet.Cell(row, 4).Value = error.Status;
+                    worksheet.Cell(row, 5).Value = error.OccurrenceCount;
+
+                    row++;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+
+                    return File(
+                        stream.ToArray(),
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "ErrorReport.xlsx");
+                }
+            }
         }
     }
 }

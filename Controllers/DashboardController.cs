@@ -16,20 +16,42 @@ namespace SmartError.API.Controllers
 
         public IActionResult Index()
         {
+            var totalErrors = _context.ErrorLogs.Count();
+
+            var criticalErrors = _context.ErrorLogs
+                .Include(x => x.Severity)
+                .Count(x => x.Severity!.Name == "Critical");
+
+            var highErrors = _context.ErrorLogs
+                .Include(x => x.Severity)
+                .Count(x => x.Severity!.Name == "High");
+
+            var duplicateErrors = _context.ErrorLogs
+                .Count(x => x.OccurrenceCount > 1);
+
+            var severityData = _context.ErrorLogs
+                .Include(x => x.Severity)
+                .GroupBy(x => x.Severity!.Name)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.Count());
+
+            var categoryData = _context.ErrorLogs
+                .Include(x => x.Category)
+                .GroupBy(x => x.Category!.Name)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.Count());
+
             var model = new DashboardViewModel
             {
-                TotalErrors = _context.ErrorLogs.Count(),
+                TotalErrors = totalErrors,
+                CriticalErrors = criticalErrors,
+                HighErrors = highErrors,
+                DuplicateErrors = duplicateErrors,
 
-                CriticalErrors = _context.ErrorLogs
-                    .Include(x => x.Severity)
-                    .Count(x => x.Severity!.Name == "Critical"),
-
-                HighErrors = _context.ErrorLogs
-                    .Include(x => x.Severity)
-                    .Count(x => x.Severity!.Name == "High"),
-
-                DuplicateErrors = _context.ErrorLogs
-                    .Count(x => x.OccurrenceCount > 1)
+                SeverityData = severityData,
+                CategoryData = categoryData
             };
 
             return View(model);
